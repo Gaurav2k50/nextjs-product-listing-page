@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { api } from "@/utils/api";
 import ProductCard from "@/components/ProductCard";
+import { Navbar } from "@/components/Navbar";
 
 interface Product {
   id: number;
@@ -24,17 +25,20 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-50 p-8">
-      <h1 className="text-2xl font-bold mb-6 text-center">Our Products</h1>
-      {loading ? (
-        <p className="text-center">Loading...</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}
-    </main>
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-gray-50 p-8 pt-[105px]">
+        <h1 className="text-2xl font-bold mb-6 text-center">Our Products</h1>
+        {loading ? (
+          <p className="text-center">Loading...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
+      </main>
+    </>
   );
 }
