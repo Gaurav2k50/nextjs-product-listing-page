@@ -1,15 +1,11 @@
 import React from "react";
 import Image from "next/image";
-
-interface Product {
-  id: number;
-  title: string;
-  image: string;
-  price: number;
-  category: string;
-}
+import { Product } from "@/types/Product";
+import { useShop } from "@/context/ShopContext";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+  const { addToCart, removeFromCart, toggleSave, isInCart, isSaved } =
+    useShop();
   return (
     <div
       className="relative"
@@ -18,8 +14,10 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         height: "483.43px",
       }}
     >
+      {" "}
       {/* Save/Bookmark icon - now at the top level */}
       <div
+        onClick={() => toggleSave(product)}
         style={{
           width: "26px",
           height: "34px",
@@ -27,6 +25,8 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           top: "17.08px",
           left: "237.44px",
           zIndex: "10",
+          cursor: "pointer",
+          opacity: isSaved(product.id) ? 0.7 : 1,
         }}
       >
         <Image
@@ -34,10 +34,12 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           alt="bookmark"
           width={26}
           height={34}
-          className="w-full h-full object-contain"
+          className={
+            "w-full h-full object-contain transition-transform " +
+            (isSaved(product.id) ? "scale-110" : "")
+          }
         />
       </div>
-
       {/* Image section */}
       <div
         style={{
@@ -56,7 +58,6 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           className="w-full h-full object-contain"
         />
       </div>
-
       {/* Below section with details */}
       <div
         style={{
@@ -87,7 +88,6 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         >
           {product.title}
         </h2>
-
         {/* Price and discount section */}
         <div
           style={{
@@ -98,17 +98,25 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             left: "10.25px",
           }}
         >
-          <p className="text-lg font-bold text-[#E5DFD9]">${product.price}</p>
-        </div>
-
+          <p className="text-lg font-bold text-[#E5DFD9]">₹{product.price}</p>
+        </div>{" "}
         {/* Bag icon */}
         <div
+          onClick={() => {
+            if (isInCart(product.id)) {
+              removeFromCart(product.id);
+            } else {
+              addToCart(product);
+            }
+          }}
           style={{
             width: "35.87px",
             height: "43.45px",
             position: "absolute",
             top: "68.33px",
             left: "237.44px",
+            cursor: "pointer",
+            opacity: isInCart(product.id) ? 0.7 : 1,
           }}
         >
           <Image
@@ -116,7 +124,10 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             alt="bag"
             width={36}
             height={43}
-            className="w-full h-full object-contain"
+            className={
+              "w-full h-full object-contain transition-transform " +
+              (isInCart(product.id) ? "scale-110" : "")
+            }
           />
         </div>
       </div>
