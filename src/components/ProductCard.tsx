@@ -14,7 +14,6 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         height: "483.43px",
       }}
     >
-      {/* Save/Bookmark icon - now at the top level */}
       <div
         onClick={() => toggleSave(product)}
         style={{
@@ -47,14 +46,20 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           borderTopLeftRadius: "6.59px",
           borderTopRightRadius: "6.59px",
           overflow: "hidden",
+          position: "relative",
         }}
       >
         <Image
           src={product.image}
           alt={product.title}
-          width={280}
-          height={373}
-          className="w-full h-full object-contain"
+          fill
+          sizes="(max-width: 280px) 100vw, 280px"
+          priority
+          className="object-cover"
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
         />
       </div>
       {/* Below section with details */}
@@ -93,15 +98,24 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         {/* Price and discount section */}
         <div
           style={{
-            width: "168.36px",
+            width: "200px",
             height: "23.92px",
             position: "absolute",
             top: "75.16px",
             left: "10.25px",
+            display: "flex",
+            alignItems: "center",
+            gap: "4px",
           }}
         >
           <p className="text-lg font-bold text-[#E5DFD9]">₹{product.price}</p>
-        </div>{" "}
+          <p className="text-sm text-gray-400 line-through">
+            ₹{product.price * 2}
+          </p>
+          <p className="text-xs text-green-500 font-semibold whitespace-nowrap">
+            (50% Off)
+          </p>
+        </div>
         {/* Bag icon */}
         <div
           onClick={() => {

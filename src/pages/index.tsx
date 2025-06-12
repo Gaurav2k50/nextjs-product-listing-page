@@ -30,9 +30,8 @@ export default function Home() {
       <Navbar />
       <CategoryBar />
       <main className="min-h-screen bg-[#0C0C0C] p-8 pt-[105px]">
-        {/* <h1 className="text-2xl font-bold mb-6 text-center">Our Products</h1> */}
         {loading ? (
-          <p className="text-center">Loading...</p>
+          <p className="text-center text-white">Loading...</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map((product) => (
