@@ -12,33 +12,113 @@ interface Product {
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   return (
     <div
-      className="border rounded-xl p-4 shadow hover:scale-105 transition-transform relative"
-      style={{ width: "280.15px", height: "483.43px" }}
+      className="relative"
+      style={{
+        width: "280.15px",
+        height: "483.43px",
+      }}
     >
-      <Image
-        src={product.image}
-        alt={product.title}
-        width={192}
-        height={192}
-        className="mx-auto object-contain mb-4"
-      />
-      {/* Bookmark icon */}
-      <div className="absolute top-2 right-2">
+      {/* Save/Bookmark icon - now at the top level */}
+      <div
+        style={{
+          width: "26px",
+          height: "34px",
+          position: "absolute",
+          top: "17.08px",
+          left: "237.44px",
+          zIndex: "10",
+        }}
+      >
         <Image
           src="/icons/Bookmark.png"
           alt="bookmark"
-          width={24}
-          height={24}
+          width={26}
+          height={34}
+          className="w-full h-full object-contain"
         />
       </div>
 
-      <h2 className="text-sm font-semibold mb-2">{product.title}</h2>
-      <p className="text-lg font-bold text-blue-600">${product.price}</p>
-      <p className="text-xs text-gray-500 mt-1">{product.category}</p>
+      {/* Image section */}
+      <div
+        style={{
+          width: "280.15px",
+          height: "373.26px",
+          borderTopLeftRadius: "6.59px",
+          borderTopRightRadius: "6.59px",
+          overflow: "hidden",
+        }}
+      >
+        <Image
+          src={product.image}
+          alt={product.title}
+          width={280}
+          height={373}
+          className="w-full h-full object-contain"
+        />
+      </div>
 
-      {/* Bag icon */}
-      <div className="absolute bottom-2 right-2">
-        <Image src="/icons/Bag.png" alt="bag" width={24} height={24} />
+      {/* Below section with details */}
+      <div
+        style={{
+          width: "280.15px",
+          height: "122.99px",
+          position: "absolute",
+          top: "360.44px",
+          borderBottomRightRadius: "17.08px",
+          borderBottomLeftRadius: "17.08px",
+          background: "#141414",
+        }}
+      >
+        {/* Product name */}
+        <h2
+          style={{
+            width: "259px",
+            height: "26px",
+            position: "absolute",
+            top: "26.48px",
+            left: "10.25px",
+            fontFamily: "Encode Sans",
+            fontWeight: 500,
+            fontSize: "20.5px",
+            lineHeight: "100%",
+            letterSpacing: "5%",
+            color: "#E5DFD9",
+          }}
+        >
+          {product.title}
+        </h2>
+
+        {/* Price and discount section */}
+        <div
+          style={{
+            width: "168.36px",
+            height: "23.92px",
+            position: "absolute",
+            top: "75.16px",
+            left: "10.25px",
+          }}
+        >
+          <p className="text-lg font-bold text-[#E5DFD9]">${product.price}</p>
+        </div>
+
+        {/* Bag icon */}
+        <div
+          style={{
+            width: "35.87px",
+            height: "43.45px",
+            position: "absolute",
+            top: "68.33px",
+            left: "237.44px",
+          }}
+        >
+          <Image
+            src="/icons/Bag.png"
+            alt="bag"
+            width={36}
+            height={43}
+            className="w-full h-full object-contain"
+          />
+        </div>
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ export default function Home() {
     <>
       <Navbar />
       <CategoryBar />
-      <main className="min-h-screen bg-gray-50 p-8 pt-[105px]">
+      <main className="min-h-screen bg-[#0C0C0C] p-8 pt-[105px]">
         {/* <h1 className="text-2xl font-bold mb-6 text-center">Our Products</h1> */}
         {loading ? (
           <p className="text-center">Loading...</p>
