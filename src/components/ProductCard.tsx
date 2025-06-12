@@ -14,7 +14,6 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         height: "483.43px",
       }}
     >
-      {" "}
       {/* Save/Bookmark icon - now at the top level */}
       <div
         onClick={() => toggleSave(product)}
@@ -84,6 +83,9 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             lineHeight: "100%",
             letterSpacing: "5%",
             color: "#E5DFD9",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
         >
           {product.title}
