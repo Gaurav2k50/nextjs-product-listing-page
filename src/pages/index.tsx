@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { api } from "@/utils/api";
 import ProductCard from "@/components/ProductCard";
 import { Navbar } from "@/components/Navbar";
+import { CategoryBar } from "@/components/CategoryBar";
 
 interface Product {
   id: number;
@@ -27,8 +28,9 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <CategoryBar />
       <main className="min-h-screen bg-gray-50 p-8 pt-[105px]">
-        <h1 className="text-2xl font-bold mb-6 text-center">Our Products</h1>
+        {/* <h1 className="text-2xl font-bold mb-6 text-center">Our Products</h1> */}
         {loading ? (
           <p className="text-center">Loading...</p>
         ) : (
