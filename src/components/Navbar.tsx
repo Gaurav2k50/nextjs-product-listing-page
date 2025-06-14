@@ -8,7 +8,14 @@ import Frame54 from "../../public/icons/Frame 54.png";
 import { useShop } from "@/context/ShopContext";
 
 export const Navbar: React.FC = () => {
-  const { cartItems, savedItems } = useShop();
+  const { cartItems, savedItems, setSelectedCategory, selectedCategory } =
+    useShop();
+
+  const handleCategoryClick = (category: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setSelectedCategory(category.toLowerCase());
+  };
+
   return (
     <nav className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full md:w-[1280px] h-auto md:h-[105px] bg-[#0C0C0C] shadow-[0px_2px_16px_0px_#00000029] z-50 px-4 md:px-[50px]">
       <div className="flex flex-col justify-between h-full py-4 md:py-[19px]">
@@ -43,11 +50,72 @@ export const Navbar: React.FC = () => {
 
         {/* Bottom: Navigation */}
         <div className="flex flex-wrap justify-center gap-4 md:gap-[32px] mt-4 md:mt-[18px] text-[#E5DFD9] text-[12px] md:text-[14px] font-encode leading-[100%] tracking-[0.1em]">
-          <Link href="#">Bags</Link>
-          <Link href="#">Travel</Link>
-          <Link href="#">Accessories</Link>
-          <Link href="#">Gifting</Link>
-          <Link href="#">Jewelery</Link>
+          <Link
+            href="#"
+            onClick={handleCategoryClick("all")}
+            className={
+              selectedCategory === "all"
+                ? "text-[#E5DFD9]"
+                : "text-[#E5DFD9]/60"
+            }
+          >
+            All
+          </Link>
+          <Link
+            href="#"
+            onClick={handleCategoryClick("bags")}
+            className={
+              selectedCategory === "bags"
+                ? "text-[#E5DFD9]"
+                : "text-[#E5DFD9]/60"
+            }
+          >
+            Bags
+          </Link>
+          <Link
+            href="#"
+            onClick={handleCategoryClick("travel")}
+            className={
+              selectedCategory === "travel"
+                ? "text-[#E5DFD9]"
+                : "text-[#E5DFD9]/60"
+            }
+          >
+            Travel
+          </Link>
+          <Link
+            href="#"
+            onClick={handleCategoryClick("accessories")}
+            className={
+              selectedCategory === "accessories"
+                ? "text-[#E5DFD9]"
+                : "text-[#E5DFD9]/60"
+            }
+          >
+            Accessories
+          </Link>
+          <Link
+            href="#"
+            onClick={handleCategoryClick("gifting")}
+            className={
+              selectedCategory === "gifting"
+                ? "text-[#E5DFD9]"
+                : "text-[#E5DFD9]/60"
+            }
+          >
+            Gifting
+          </Link>
+          <Link
+            href="#"
+            onClick={handleCategoryClick("jewelery")}
+            className={
+              selectedCategory === "jewelery"
+                ? "text-[#E5DFD9]"
+                : "text-[#E5DFD9]/60"
+            }
+          >
+            Jewelery
+          </Link>
         </div>
       </div>
     </nav>

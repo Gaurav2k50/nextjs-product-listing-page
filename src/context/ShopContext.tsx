@@ -1,9 +1,19 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import { Product } from "@/types/Product";
+import { api } from "@/utils/api";
 
 interface ShopContextType {
   cartItems: Product[];
   savedItems: Product[];
+  products: Product[];
+  selectedCategory: string;
+  setSelectedCategory: (category: string) => void;
   addToCart: (product: Product) => void;
   removeFromCart: (productId: number) => void;
   toggleSave: (product: Product) => void;
@@ -16,6 +26,24 @@ const ShopContext = createContext<ShopContextType | undefined>(undefined);
 export function ShopProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [savedItems, setSavedItems] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response =
+          selectedCategory === "all"
+            ? await api.get("/products")
+            : await api.get(`/products/category/${selectedCategory}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [selectedCategory]);
 
   const addToCart = (product: Product) => {
     setCartItems((prev) => [...prev, product]);
@@ -43,12 +71,14 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   const isSaved = (productId: number) => {
     return savedItems.some((item) => item.id === productId);
   };
-
   return (
     <ShopContext.Provider
       value={{
         cartItems,
         savedItems,
+        products,
+        selectedCategory,
+        setSelectedCategory,
         addToCart,
         removeFromCart,
         toggleSave,
